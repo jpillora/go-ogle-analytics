@@ -9,14 +9,14 @@ import "errors"
 type Social struct {
 	// Specifies the social network, for example Facebook or Google
 	// Plus.
-	Network string 	//@TODO string
+	Network string
 	// Specifies the social interaction action. For example on
 	// Google Plus when a user clicks the +1 button, the social
 	// action is 'plus'.
-	Action string 	//@TODO string
+	Action string
 	// Specifies the target of a social interaction. This value
 	// is typically a URL but can be any text.
-	ActionTarget string 	//@TODO string
+	ActionTarget string
 }
 
 func (h *Social) addFields(v url.Values) error {

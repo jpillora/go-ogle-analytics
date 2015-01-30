@@ -7,9 +7,9 @@ import "net/url"
 //Exception Hit Type
 type Exception struct {
 	// Specifies the description of an exception.
-	Description string 	//@TODO string
+	Description string
 	// Specifies whether the exception was fatal.
-	IsExceptionFatal string 	//@TODO bool
+	IsExceptionFatal string
 }
 
 func (h *Exception) addFields(v url.Values) error {

@@ -8,8 +8,8 @@ The `ga` package is essentially a Go wrapper around the [Google Analytics - Meas
 
 1. This package is 95% generated from [Google Analytics - Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/reference) so it may contain bugs - please report them.
 1. Although the protocol provides types, currently they're not being used
-	* GA uses the presence of a property to determine whether it's set or not. So with boolean values,
-	there's actually `true`, `false` and *unset*. This is difficult when coming into Go land since `bool`s
+	* GA uses the presence of a property to determine whether or not it's set. So with boolean values for example,
+	there's 3 states, `true`, `false` and *unset*. This makes it difficult when coming modelling this in Go land since `bool`s
 	must be either `true` or `false` - there is no *unset*.
 1. This package is beta software and may change due to **.1** and/or **.2**.
 1. GA allows "10 million hits per month per property" and will reject requests after that

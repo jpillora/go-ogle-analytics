@@ -10,21 +10,21 @@ type Item struct {
 	// A unique identifier for the transaction. This value should
 	// be the same for both the Transaction hit and Items hits
 	// associated to the particular transaction.
-	ID string 	//@TODO string
+	ID string
 	// Specifies the item name.
-	Name string 	//@TODO string
+	Name string
 	// Specifies the price for a single item / unit.
-	Price string 	//@TODO float64
+	Price string
 	// Specifies the number of items purchased.
-	Quantity string 	//@TODO int64
+	Quantity string
 	// Specifies the SKU or item code.
-	Code string 	//@TODO string
+	Code string
 	// Specifies the category that the item belongs to.
-	Category string 	//@TODO string
+	Category string
 	// When present indicates the local currency for all transaction
 	// currency values. Value should be a valid ISO 4217 currency
 	// code.
-	CurrencyCode string 	//@TODO string
+	CurrencyCode string
 }
 
 func (h *Item) addFields(v url.Values) error {

@@ -10,20 +10,20 @@ type Transaction struct {
 	// A unique identifier for the transaction. This value should
 	// be the same for both the Transaction hit and Items hits
 	// associated to the particular transaction.
-	ID string 	//@TODO string
+	ID string
 	// Specifies the affiliation or store name.
-	Affiliation string 	//@TODO string
+	Affiliation string
 	// Specifies the total revenue associated with the transaction.
 	// This value should include any shipping or tax costs.
-	Revenue string 	//@TODO float64
+	Revenue string
 	// Specifies the total shipping cost of the transaction.
-	Shipping string 	//@TODO float64
+	Shipping string
 	// Specifies the total tax of the transaction.
-	Tax string 	//@TODO float64
+	Tax string
 	// When present indicates the local currency for all transaction
 	// currency values. Value should be a valid ISO 4217 currency
 	// code.
-	CurrencyCode string 	//@TODO string
+	CurrencyCode string
 }
 
 func (h *Transaction) addFields(v url.Values) error {

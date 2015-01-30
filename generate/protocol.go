@@ -6,6 +6,7 @@ import (
 	"log"
 	"os"
 	"regexp"
+	"sort"
 	"strings"
 	"text/template"
 
@@ -47,9 +48,6 @@ var hitTypes = map[string]*HitType{
 	"client": &HitType{Name: "client"},
 }
 
-//special exluded field
-var hitTypeField *Field
-
 //====================================================
 //the code template (split into separate strings for somewhat better readability)
 
@@ -59,8 +57,9 @@ func buildCode() string {
 	UseTLS bool
 {{end}}`
 
+	//@TODO {{.Type}}
 	var fields = `{{range $index, $element := .Fields}}{{.Docs}}
-	{{.Name}} string 	//@TODO {{.Type}}
+	{{.Name}} string
 {{end}}`
 
 	var indices = `{{range $index, $value := .Indices}}	// {{$value}} is required by other properties
@@ -95,7 +94,9 @@ import "errors"{{end}}
 //{{.StructName}} Hit Type
 type {{.StructName}} struct {
 ` + clientFields +
-		fields + indices + `}
+		fields +
+		indices +
+		`}
 
 func (h *{{.StructName}}) addFields(v url.Values) error {
 ` + params + `	return nil
@@ -214,6 +215,9 @@ func parse() {
 		log.Fatal(err)
 	}
 
+	//special exluded field
+	var hitTypeDocs string
+
 	doc.Find("h3").Each(func(i int, s *goquery.Selection) {
 
 		content := s.Next().Children()
@@ -233,17 +237,17 @@ func parse() {
 		}
 
 		if f.Name == "Hit type" {
-			hitTypeField = f
+			hitTypeDocs = f.Docs
 		}
 		allFields = append(allFields, f)
 	})
 
-	buildTypes()
+	buildTypes(hitTypeDocs)
 }
 
-func buildTypes() {
+func buildTypes(hitTypeDocs string) {
 	//hit type docs contain all type names
-	for _, t := range strings.Split(hitTypeField.Docs, ",") {
+	for _, t := range strings.Split(hitTypeDocs, ",") {
 		t = strVar(t)
 		hitTypes[t] = &HitType{Name: t}
 	}
@@ -333,6 +337,7 @@ func processHitType(h *HitType) {
 				h.HitTypeIDs = append(h.HitTypeIDs, h2.Name)
 			}
 		}
+		sort.Strings(h.HitTypeIDs)
 	}
 }
 

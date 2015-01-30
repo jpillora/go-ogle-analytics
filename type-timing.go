@@ -7,37 +7,37 @@ import "net/url"
 //Timing Hit Type
 type Timing struct {
 	// Specifies the user timing category.
-	UserTimingCategory string 	//@TODO string
+	UserTimingCategory string
 	// Specifies the user timing variable.
-	UserTimingVariableName string 	//@TODO string
+	UserTimingVariableName string
 	// Specifies the user timing value. The value is in milliseconds.
-	UserTimingTime string 	//@TODO int64
+	UserTimingTime string
 	// Specifies the user timing label.
-	UserTimingLabel string 	//@TODO string
+	UserTimingLabel string
 	// Specifies the time it took for a page to load. The value
 	// is in milliseconds.
-	PageLoadTime string 	//@TODO int64
+	PageLoadTime string
 	// Specifies the time it took to do a DNS lookup.The value
 	// is in milliseconds.
-	DNSTime string 	//@TODO int64
+	DNSTime string
 	// Specifies the time it took for the page to be downloaded.
 	// The value is in milliseconds.
-	PageDownloadTime string 	//@TODO int64
+	PageDownloadTime string
 	// Specifies the time it took for any redirects to happen.
 	// The value is in milliseconds.
-	RedirectResponseTime string 	//@TODO int64
+	RedirectResponseTime string
 	// Specifies the time it took for a TCP connection to be made.
 	// The value is in milliseconds.
-	TCPConnectTime string 	//@TODO int64
+	TCPConnectTime string
 	// Specifies the time it took for the server to respond after
 	// the connect time. The value is in milliseconds.
-	ServerResponseTime string 	//@TODO int64
+	ServerResponseTime string
 	// Specifies the time it took for Document.readyState to be
 	// 'interactive'. The value is in milliseconds.
-	DOMInteractiveTime string 	//@TODO int64
+	DOMInteractiveTime string
 	// Specifies the time it took for the DOMContentLoaded Event
 	// to fire. The value is in milliseconds.
-	ContentLoadTime string 	//@TODO int64
+	ContentLoadTime string
 }
 
 func (h *Timing) addFields(v url.Values) error {

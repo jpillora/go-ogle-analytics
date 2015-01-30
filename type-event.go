@@ -7,13 +7,13 @@ import "net/url"
 //Event Hit Type
 type Event struct {
 	// Specifies the event category. Must not be empty.
-	Category string 	//@TODO string
+	Category string
 	// Specifies the event action.  Must not be empty.
-	Action string 	//@TODO string
+	Action string
 	// Specifies the event label.
-	Label string 	//@TODO string
+	Label string
 	// Specifies the event value. Values must be non-negative.
-	Value string 	//@TODO int64
+	Value string
 }
 
 func (h *Event) addFields(v url.Values) error {

@@ -7,20 +7,20 @@ import "errors"
 
 func (c *Client) setType(h hitType) {
 	switch h.(type) {
-	case *Timing:
-		c.hitType = "timing"
-	case *Screenview:
-		c.hitType = "screenview"
 	case *Event:
 		c.hitType = "event"
-	case *Item:
-		c.hitType = "item"
-	case *Social:
-		c.hitType = "social"
 	case *Exception:
 		c.hitType = "exception"
+	case *Item:
+		c.hitType = "item"
 	case *Pageview:
 		c.hitType = "pageview"
+	case *Screenview:
+		c.hitType = "screenview"
+	case *Social:
+		c.hitType = "social"
+	case *Timing:
+		c.hitType = "timing"
 	case *Transaction:
 		c.hitType = "transaction"
 	}
@@ -33,53 +33,53 @@ type Client struct {
 	// The Protocol version. The current value is '1'. This will
 	// only change when there are changes made that are not backwards
 	// compatible.
-	ProtocolVersion string 	//@TODO string
+	ProtocolVersion string
 	// The tracking ID / web property ID. The format is UA-XXXX-Y.
 	// All collected data is associated by this ID.
-	TrackingID string 	//@TODO string
+	TrackingID string
 	// When present, the IP address of the sender will be anonymized.
 	// For example, the IP will be anonymized if any of the following
 	// parameters are present in the payload: &aip=, &aip=0, or
 	// &aip=1
-	AnonymizeIP string 	//@TODO bool
+	AnonymizeIP string
 	// Used to collect offline / latent hits. The value represents
 	// the time delta (in milliseconds) between when the hit being
 	// reported occurred and the time the hit was sent. The value
 	// must be greater than or equal to 0. Values greater than
 	// four hours may lead to hits not being processed.
-	QueueTime string 	//@TODO int64
+	QueueTime string
 	// Used to send a random number in GET requests to ensure browsers
 	// and proxies don't cache hits. It should be sent as the final
 	// parameter of the request since we've seen some 3rd party
 	// internet filtering software add additional parameters to
 	// HTTP requests incorrectly. This value is not used in reporting.
-	CacheBuster string 	//@TODO string
+	CacheBuster string
 	// This anonymously identifies a particular user, device, or
 	// browser instance. For the web, this is generally stored
 	// as a first-party cookie with a two-year expiration. For
 	// mobile apps, this is randomly generated for each particular
 	// instance of an application install. The value of this field
 	// should be a random UUID (version 4) as described in http://www.ietf.org/rfc/rfc4122.txt
-	ClientID string 	//@TODO string
+	ClientID string
 	// This is intended to be a known identifier for a user provided
 	// by the site owner/tracking library user. It may not itself
 	// be PII (personally identifiable information). The value
 	// should never be persisted in GA cookies or other Analytics
 	// provided storage.
-	UserID string 	//@TODO string
+	UserID string
 	// Used to control the session duration. A value of 'start'
 	// forces a new session to start with this hit and 'end' forces
 	// the current session to end with this hit. All other values
 	// are ignored.
-	SessionControl string 	//@TODO string
+	SessionControl string
 	// The IP address of the user. This should be a valid IP address
 	// in IPv4 or IPv6 format. It will always be anonymized just
 	// as though &aip (anonymize IP) had been used.
-	IPOverride string 	//@TODO string
+	IPOverride string
 	// The User Agent of the browser. Note that Google has libraries
 	// to identify real user agents. Hand crafting your own agent
 	// could break at any time.
-	UserAgentOverride string 	//@TODO string
+	UserAgentOverride string
 	// The geographical location of the user. The geographical
 	// ID should be a two letter country code or a criteria ID
 	// representing a city or region (see http://developers.google.com/analytics/devguides/collection/protocol/v1/geoid).
@@ -87,46 +87,46 @@ type Client struct {
 	// from IP address, including the IP Override parameter. An
 	// invalid code will result in geographical dimensions to be
 	// set to '(not set)'.
-	GeographicalOverride string 	//@TODO string
+	GeographicalOverride string
 	// Specifies which referral source brought traffic to a website.
 	// This value is also used to compute the traffic source. The
 	// format of this value is a URL.
-	DocumentReferrer string 	//@TODO string
+	DocumentReferrer string
 	// Specifies the campaign name.
-	CampaignName string 	//@TODO string
+	CampaignName string
 	// Specifies the campaign source.
-	CampaignSource string 	//@TODO string
+	CampaignSource string
 	// Specifies the campaign medium.
-	CampaignMedium string 	//@TODO string
+	CampaignMedium string
 	// Specifies the campaign keyword.
-	CampaignKeyword string 	//@TODO string
+	CampaignKeyword string
 	// Specifies the campaign content.
-	CampaignContent string 	//@TODO string
+	CampaignContent string
 	// Specifies the campaign ID.
-	CampaignID string 	//@TODO string
+	CampaignID string
 	// Specifies the Google AdWords Id.
-	GoogleAdWordsID string 	//@TODO string
+	GoogleAdWordsID string
 	// Specifies the Google Display Ads Id.
-	GoogleDisplayAdsID string 	//@TODO string
+	GoogleDisplayAdsID string
 	// Specifies the screen resolution.
-	ScreenResolution string 	//@TODO string
+	ScreenResolution string
 	// Specifies the viewable area of the browser / device.
-	ViewportSize string 	//@TODO string
+	ViewportSize string
 	// Specifies the character set used to encode the page / document.
-	DocumentEncoding string 	//@TODO string
+	DocumentEncoding string
 	// Specifies the screen color depth.
-	ScreenColors string 	//@TODO string
+	ScreenColors string
 	// Specifies the language.
-	UserLanguage string 	//@TODO string
+	UserLanguage string
 	// Specifies whether Java was enabled.
-	JavaEnabled string 	//@TODO bool
+	JavaEnabled string
 	// Specifies the flash version.
-	FlashVersion string 	//@TODO string
+	FlashVersion string
 	// The type of hit. Must be one of 'pageview', 'screenview',
 	// 'event', 'transaction', 'item', 'social', 'exception', 'timing'.
-	hitType string 	//@TODO string
+	hitType string
 	// Specifies that a hit be considered non-interactive.
-	NonInteractionHit string 	//@TODO bool
+	NonInteractionHit string
 	// Use this parameter to send the full URL (document location)
 	// of the page on which content resides. You can use the &dh
 	// and &dp parameters to override the hostname and path + query
@@ -138,109 +138,109 @@ type Client struct {
 	// from the URL if present. For 'pageview' hits, either &dl
 	// or both &dh and &dp have to be specified for the hit to
 	// be valid.
-	DocumentLocationURL string 	//@TODO string
+	DocumentLocationURL string
 	// Specifies the hostname from which content was hosted.
-	DocumentHostName string 	//@TODO string
+	DocumentHostName string
 	// The path portion of the page URL. Should begin with '/'.
 	// For 'pageview' hits, either &dl or both &dh and &dp have
 	// to be specified for the hit to be valid.
-	DocumentPath string 	//@TODO string
+	DocumentPath string
 	// The title of the page / document.
-	DocumentTitle string 	//@TODO string
+	DocumentTitle string
 	// If not specified, this will default to the unique URL of
 	// the page by either using the &dl parameter as-is or assembling
 	// it from &dh and &dp. App tracking makes use of this for
 	// the 'Screen Name' of the screenview hit.
-	ScreenName string 	//@TODO string
+	ScreenName string
 	// The ID of a clicked DOM element, used to disambiguate multiple
 	// links to the same URL in In-Page Analytics reports when
 	// Enhanced Link Attribution is enabled for the property.
-	LinkID string 	//@TODO string
+	LinkID string
 	// Specifies the application name.
-	ApplicationName string 	//@TODO string
+	ApplicationName string
 	// Application identifier.
-	ApplicationID string 	//@TODO string
+	ApplicationID string
 	// Specifies the application version.
-	ApplicationVersion string 	//@TODO string
+	ApplicationVersion string
 	// Application installer identifier.
-	ApplicationInstallerID string 	//@TODO string
+	ApplicationInstallerID string
 	// The SKU of the product. Product index must be a positive
 	// integer between 1 and 200, inclusive. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	ProductSKU string 	//@TODO string
+	ProductSKU string
 	// The name of the product. Product index must be a positive
 	// integer between 1 and 200, inclusive. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	ProductName string 	//@TODO string
+	ProductName string
 	// The brand associated with the product. Product index must
 	// be a positive integer between 1 and 200, inclusive. For
 	// analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductBrand string 	//@TODO string
+	ProductBrand string
 	// The category to which the product belongs. Product index
 	// must be a positive integer between 1 and 200, inclusive.
 	// The product category parameter can be hierarchical. Use
 	// / as a delimiter to specify up to 5-levels of hierarchy.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductCategory string 	//@TODO string
+	ProductCategory string
 	// The variant of the product. Product index must be a positive
 	// integer between 1 and 200, inclusive. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	ProductVariant string 	//@TODO string
+	ProductVariant string
 	// The price of a product. Product index must be a positive
 	// integer between 1 and 200, inclusive. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	ProductPrice string 	//@TODO float64
+	ProductPrice string
 	// The quantity of a product. Product index must be a positive
 	// integer between 1 and 200, inclusive. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	ProductQuantity string 	//@TODO int64
+	ProductQuantity string
 	// The coupon code associated with a product. Product index
 	// must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductCouponCode string 	//@TODO string
+	ProductCouponCode string
 	// The product's position in a list or collection. Product
 	// index must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductPosition string 	//@TODO int64
+	ProductPosition string
 	// A product-level custom dimension where dimension index is
 	// a positive integer between 1 and 200, inclusive. Product
 	// index must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductCustomDimension string 	//@TODO string
+	ProductCustomDimension string
 	// A product-level custom metric where metric index is a positive
 	// integer between 1 and 200, inclusive. Product index must
 	// be a positive integer between 1 and 200, inclusive. For
 	// analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductCustomMetric string 	//@TODO int64
+	ProductCustomMetric string
 	// The role of the products included in a hit. If a product
 	// action is not specified, all product definitions included
 	// with the hit will be ignored. Must be one of: detail, click,
 	// add, remove, checkout, checkout_option, purchase, refund.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductAction string 	//@TODO string
+	ProductAction string
 	// The transaction ID. This is an additional parameter that
 	// can be sent when Product Action is set to 'purchase' or
 	// 'refund'. For analytics.js the Enhanced Ecommerce plugin
 	// must be installed before using this field.
-	TransactionID string 	//@TODO string
+	TransactionID string
 	// The store or affiliation from which this transaction occurred.
 	// This is an additional parameter that can be sent when Product
 	// Action is set to 'purchase' or 'refund'. For analytics.js
 	// the Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	Affiliation string 	//@TODO string
+	Affiliation string
 	// The total value of the transaction, including tax and shipping.
 	// If not sent, this value will be automatically calculated
 	// using the product quantity and price fields of all products
@@ -248,154 +248,154 @@ type Client struct {
 	// be sent when Product Action is set to 'purchase' or 'refund'.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	Revenue string 	//@TODO float64
+	Revenue string
 	// The total tax associated with the transaction. This is an
 	// additional parameter that can be sent when Product Action
 	// is set to 'purchase' or 'refund'. For analytics.js the Enhanced
 	// Ecommerce plugin must be installed before using this field.
-	Tax string 	//@TODO float64
+	Tax string
 	// The shipping cost associated with the transaction. This
 	// is an additional parameter that can be sent when Product
 	// Action is set to 'purchase' or 'refund'. For analytics.js
 	// the Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	Shipping string 	//@TODO float64
+	Shipping string
 	// The transaction coupon redeemed with the transaction. This
 	// is an additional parameter that can be sent when Product
 	// Action is set to 'purchase' or 'refund'. For analytics.js
 	// the Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	CouponCode string 	//@TODO string
+	CouponCode string
 	// The list or collection from which a product action occurred.
 	// This is an additional parameter that can be sent when Product
 	// Action is set to 'detail' or 'click'. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	ProductActionList string 	//@TODO string
+	ProductActionList string
 	// The step number in a checkout funnel. This is an additional
 	// parameter that can be sent when Product Action is set to
 	// 'checkout'. For analytics.js the Enhanced Ecommerce plugin
 	// must be installed before using this field.
-	CheckoutStep string 	//@TODO int64
+	CheckoutStep string
 	// Additional information about a checkout step. This is an
 	// additional parameter that can be sent when Product Action
 	// is set to 'checkout'. For analytics.js the Enhanced Ecommerce
 	// plugin must be installed before using this field.
-	CheckoutStepOption string 	//@TODO string
+	CheckoutStepOption string
 	// The list or collection to which a product belongs. Impression
 	// List index must be a positive integer between 1 and 200,
 	// inclusive. For analytics.js the Enhanced Ecommerce plugin
 	// must be installed before using this field.
-	ProductImpressionListName string 	//@TODO string
+	ProductImpressionListName string
 	// The product ID or SKU. Impression List index must be a positive
 	// integer between 1 and 200, inclusive. Product index must
 	// be a positive integer between 1 and 200, inclusive. For
 	// analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductImpressionSKU string 	//@TODO string
+	ProductImpressionSKU string
 	// The name of the product. Impression List index must be a
 	// positive integer between 1 and 200, inclusive. Product index
 	// must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductImpressionName string 	//@TODO string
+	ProductImpressionName string
 	// The brand associated with the product. Impression List index
 	// must be a positive integer between 1 and 200, inclusive.
 	// Product index must be a positive integer between 1 and 200,
 	// inclusive. For analytics.js the Enhanced Ecommerce plugin
 	// must be installed before using this field.
-	ProductImpressionBrand string 	//@TODO string
+	ProductImpressionBrand string
 	// The category to which the product belongs. Impression List
 	// index must be a positive integer between 1 and 200, inclusive.
 	// Product index must be a positive integer between 1 and 200,
 	// inclusive. For analytics.js the Enhanced Ecommerce plugin
 	// must be installed before using this field.
-	ProductImpressionCategory string 	//@TODO string
+	ProductImpressionCategory string
 	// The variant of the product. Impression List index must be
 	// a positive integer between 1 and 200, inclusive. Product
 	// index must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductImpressionVariant string 	//@TODO string
+	ProductImpressionVariant string
 	// The product's position in a list or collection. Impression
 	// List index must be a positive integer between 1 and 200,
 	// inclusive. Product index must be a positive integer between
 	// 1 and 200, inclusive. For analytics.js the Enhanced Ecommerce
 	// plugin must be installed before using this field.
-	ProductImpressionPosition string 	//@TODO int64
+	ProductImpressionPosition string
 	// The price of a product. Impression List index must be a
 	// positive integer between 1 and 200, inclusive. Product index
 	// must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	ProductImpressionPrice string 	//@TODO float64
+	ProductImpressionPrice string
 	// A product-level custom dimension where dimension index is
 	// a positive integer between 1 and 200, inclusive. Impression
 	// List index must be a positive integer between 1 and 200,
 	// inclusive. Product index must be a positive integer between
 	// 1 and 200, inclusive. For analytics.js the Enhanced Ecommerce
 	// plugin must be installed before using this field.
-	ProductImpressionCustomDimension string 	//@TODO string
+	ProductImpressionCustomDimension string
 	// A product-level custom metric where metric index is a positive
 	// integer between 1 and 200, inclusive. Impression List index
 	// must be a positive integer between 1 and 200, inclusive.
 	// Product index must be a positive integer between 1 and 200,
 	// inclusive. For analytics.js the Enhanced Ecommerce plugin
 	// must be installed before using this field.
-	ProductImpressionCustomMetric string 	//@TODO int64
+	ProductImpressionCustomMetric string
 	// The promotion ID. Promotion index must be a positive integer
 	// between 1 and 200, inclusive. For analytics.js the Enhanced
 	// Ecommerce plugin must be installed before using this field.
-	PromotionID string 	//@TODO string
+	PromotionID string
 	// The name of the promotion. Promotion index must be a positive
 	// integer between 1 and 200, inclusive. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	PromotionName string 	//@TODO string
+	PromotionName string
 	// The creative associated with the promotion. Promotion index
 	// must be a positive integer between 1 and 200, inclusive.
 	// For analytics.js the Enhanced Ecommerce plugin must be installed
 	// before using this field.
-	PromotionCreative string 	//@TODO string
+	PromotionCreative string
 	// The position of the creative. Promotion index must be a
 	// positive integer between 1 and 200, inclusive. For analytics.js
 	// the Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	PromotionPosition string 	//@TODO string
+	PromotionPosition string
 	// Specifies the role of the promotions included in a hit.
 	// If a promotion action is not specified, the default promotion
 	// action, 'view', is assumed. To measure a user click on a
 	// promotion set this to 'promo_click'. For analytics.js the
 	// Enhanced Ecommerce plugin must be installed before using
 	// this field.
-	PromotionAction string 	//@TODO string
+	PromotionAction string
 	// Each custom dimension has an associated index. There is
 	// a maximum of 20 custom dimensions (200 for Premium accounts).
 	// The dimension index must be a positive integer between 1
 	// and 200, inclusive.
-	CustomDimension string 	//@TODO string
+	CustomDimension string
 	// Each custom metric has an associated index. There is a maximum
 	// of 20 custom metrics (200 for Premium accounts). The metric
 	// index must be a positive integer between 1 and 200, inclusive.
-	CustomMetric string 	//@TODO int64
+	CustomMetric string
 	// This parameter specifies that this user has been exposed
 	// to an experiment with the given ID. It should be sent in
 	// conjunction with the Experiment Variant parameter.
-	ExperimentID string 	//@TODO string
+	ExperimentID string
 	// This parameter specifies that this user has been exposed
 	// to a particular variation of an experiment. It should be
 	// sent in conjunction with the Experiment ID parameter.
-	ExperimentVariant string 	//@TODO string
+	ExperimentVariant string
+	// DimensionIndex is required by other properties
+	DimensionIndex string
+	// MetricIndex is required by other properties
+	MetricIndex string
 	// ListIndex is required by other properties
 	ListIndex string
 	// PromoIndex is required by other properties
 	PromoIndex string
 	// ProductIndex is required by other properties
 	ProductIndex string
-	// DimensionIndex is required by other properties
-	DimensionIndex string
-	// MetricIndex is required by other properties
-	MetricIndex string
 }
 
 func (h *Client) addFields(v url.Values) error {
