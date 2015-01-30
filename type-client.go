@@ -388,14 +388,14 @@ type Client struct {
 	ExperimentVariant string
 	// DimensionIndex is required by other properties
 	DimensionIndex string
-	// MetricIndex is required by other properties
-	MetricIndex string
 	// ListIndex is required by other properties
 	ListIndex string
-	// PromoIndex is required by other properties
-	PromoIndex string
+	// MetricIndex is required by other properties
+	MetricIndex string
 	// ProductIndex is required by other properties
 	ProductIndex string
+	// PromoIndex is required by other properties
+	PromoIndex string
 }
 
 func (h *Client) addFields(v url.Values) error {

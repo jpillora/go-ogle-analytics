@@ -106,66 +106,6 @@ func (h *{{.StructName}}) addFields(v url.Values) error {
 var codeTemplate *template.Template
 
 //====================================================
-//helper functions
-
-var trim = strings.TrimSpace
-
-func commentIndent(s string) string {
-	words := strings.Split(s, " ")
-	comment := "\t//"
-	width := 0
-	for _, w := range words {
-		if width > 55 {
-			width = 0
-			comment += "\n\t//"
-		}
-		width += len(w) + 1
-		comment += " " + w
-	}
-	return comment
-}
-
-func exportName(s string) string {
-	words := strings.Split(s, " ")
-	for i, w := range words {
-		words[i] = xstrings.FirstRuneToUpper(w)
-	}
-	return strings.Join(words, "")
-}
-
-var preslash = grepper(`^([^\/]+)`)
-var alpha = striper(`[^A-Za-z]`)
-
-func paramName(s string) string {
-	return alpha(exportName(preslash(s)))
-}
-
-func goName(parent, prop string) string {
-	return strings.TrimPrefix(prop, parent)
-}
-
-func goType(gaType string) string {
-	switch gaType {
-	case "text":
-		return "string"
-	case "integer":
-		return "int64"
-	case "boolean":
-		return "bool"
-	case "currency":
-		return "float64"
-	}
-	log.Fatal("Unknown GA Type: " + gaType)
-	return ""
-}
-
-var templateFuncs = template.FuncMap{
-	"exportName": exportName,
-}
-
-var indexMatcher = regexp.MustCompile(`<[A-Za-z]+>`)
-var indexVar = grepper(`<([A-Za-z]+)>`)
-var strVar = grepper(`'([a-z]+)'`)
 
 //meta helpers
 func grepper(restr string) func(string) string {
@@ -190,6 +130,60 @@ func striper(restr string) func(string) string {
 	}
 }
 
+//helper functions
+var trim = strings.TrimSpace
+var preslash = grepper(`^([^\/]+)`)
+var alpha = striper(`[^A-Za-z]`)
+var indexMatcher = regexp.MustCompile(`<[A-Za-z]+>`)
+var indexVar = grepper(`<([A-Za-z]+)>`)
+var strVar = grepper(`'([a-z]+)'`)
+
+func commentIndent(s string) string {
+	words := strings.Split(s, " ")
+	comment := "\t//"
+	width := 0
+	for _, w := range words {
+		if width > 55 {
+			width = 0
+			comment += "\n\t//"
+		}
+		width += len(w) + 1
+		comment += " " + w
+	}
+	return comment
+}
+
+func exportName(s string) string {
+	words := strings.Split(s, " ")
+	for i, w := range words {
+		words[i] = xstrings.FirstRuneToUpper(w)
+	}
+	return strings.Join(words, "")
+}
+
+func paramName(s string) string {
+	return alpha(exportName(preslash(s)))
+}
+
+func goName(parent, field string) string {
+	return strings.TrimPrefix(field, parent)
+}
+
+func goType(gaType string) string {
+	switch gaType {
+	case "text":
+		return "string"
+	case "integer":
+		return "int64"
+	case "boolean":
+		return "bool"
+	case "currency":
+		return "float64"
+	}
+	log.Fatal("Unknown GA Type: " + gaType)
+	return ""
+}
+
 //====================================
 
 //main pipeline
@@ -200,7 +194,9 @@ func main() {
 func check() {
 	code := buildCode()
 	t := template.New("ga-code")
-	t = t.Funcs(templateFuncs)
+	t = t.Funcs(template.FuncMap{
+		"exportName": exportName,
+	})
 	t, err := t.Parse(code)
 	if err != nil {
 		log.Fatalf("Template error: %s", err)
@@ -329,6 +325,7 @@ func processHitType(h *HitType) {
 	for i, _ := range is {
 		h.Indices = append(h.Indices, i)
 	}
+	sort.Strings(h.Indices)
 
 	//place all non-client hittype ids in client for templating
 	if h.Name == "client" {
