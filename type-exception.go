@@ -12,7 +12,7 @@ type Exception struct {
 	isExceptionFatalSet bool
 }
 
-//NewException creates a new...
+// NewException creates a new Exception Hit Type.
 func NewException() *Exception {
 	h := &Exception{}
 	return h

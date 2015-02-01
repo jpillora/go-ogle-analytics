@@ -8,7 +8,7 @@ import "net/url"
 type Screenview struct {
 }
 
-//NewScreenview creates a new...
+// NewScreenview creates a new Screenview Hit Type.
 func NewScreenview() *Screenview {
 	h := &Screenview{}
 	return h

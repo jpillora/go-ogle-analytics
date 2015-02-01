@@ -11,7 +11,11 @@ type Social struct {
 	actionTarget string
 }
 
-//NewSocial creates a new...
+// NewSocial creates a new Social Hit Type.// Specifies the social network, for example Facebook or Google
+// Plus.// Specifies the social interaction action. For example on
+// Google Plus when a user clicks the +1 button, the social
+// action is 'plus'.// Specifies the target of a social interaction. This value
+// is typically a URL but can be any text.
 func NewSocial(network string, action string, actionTarget string) *Social {
 	h := &Social{
 		network:      network,

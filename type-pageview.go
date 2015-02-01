@@ -8,7 +8,7 @@ import "net/url"
 type Pageview struct {
 }
 
-//NewPageview creates a new...
+// NewPageview creates a new Pageview Hit Type.
 func NewPageview() *Pageview {
 	h := &Pageview{}
 	return h

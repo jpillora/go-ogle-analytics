@@ -166,14 +166,14 @@ type Client struct {
 	experimentIDSet                     bool
 	experimentVariant                   string
 	experimentVariantSet                bool
-	productIndex                        string
-	productIndexSet                     bool
 	dimensionIndex                      string
 	dimensionIndexSet                   bool
-	metricIndex                         string
-	metricIndexSet                      bool
 	listIndex                           string
 	listIndexSet                        bool
+	metricIndex                         string
+	metricIndexSet                      bool
+	productIndex                        string
+	productIndexSet                     bool
 	promoIndex                          string
 	promoIndexSet                       bool
 }
@@ -1183,17 +1183,17 @@ func (h *Client) ExperimentVariant(experimentVariant string) *Client {
 	return h
 }
 
-// ProductIndex is required by other properties
-func (h *Client) ProductIndex(productIndex string) *Client {
-	h.productIndex = productIndex
-	h.productIndexSet = true
-	return h
-}
-
 // DimensionIndex is required by other properties
 func (h *Client) DimensionIndex(dimensionIndex string) *Client {
 	h.dimensionIndex = dimensionIndex
 	h.dimensionIndexSet = true
+	return h
+}
+
+// ListIndex is required by other properties
+func (h *Client) ListIndex(listIndex string) *Client {
+	h.listIndex = listIndex
+	h.listIndexSet = true
 	return h
 }
 
@@ -1204,10 +1204,10 @@ func (h *Client) MetricIndex(metricIndex string) *Client {
 	return h
 }
 
-// ListIndex is required by other properties
-func (h *Client) ListIndex(listIndex string) *Client {
-	h.listIndex = listIndex
-	h.listIndexSet = true
+// ProductIndex is required by other properties
+func (h *Client) ProductIndex(productIndex string) *Client {
+	h.productIndex = productIndex
+	h.productIndexSet = true
 	return h
 }
 

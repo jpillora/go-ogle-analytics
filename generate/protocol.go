@@ -66,14 +66,6 @@ func buildCode() string {
 	{{.PrivateName}}Set bool{{end}}
 {{end}}`
 
-	// 	var indices = `{{range $index, $value := .Indices}}	// {{$value}} is required by other properties
-	// 	{{$value}} string
-	// {{end}}`
-
-	// var paramRequired = `{{if .Required}} else {
-	// 	return errors.New("Required field '{{.Name}}' is missing")
-	// }{{end}}`
-
 	var paramVal = `{{if eq .Type "string"}}h.{{.PrivateName}}{{end}}` +
 		`{{if eq .Type "bool"}}bool2str(h.{{.PrivateName}}){{end}}` +
 		`{{if eq .Type "int64"}}int2str(h.{{.PrivateName}}){{end}}` +
@@ -84,11 +76,16 @@ func buildCode() string {
 	}{{end}}
 {{end}}{{end}}`
 
+	var constructorDocs = `{{if ne .Name "client" }}// New{{ .StructName }} ` +
+		`creates a new {{ .StructName }} Hit Type.` +
+		`{{range $index, $element := .Fields}}
+		{{if .Required}}{{.Docs}}{{end}}{{end}}`
+
 	var constructorParams = `{{range $index, $element := .Fields}}{{if .Required}}` +
 		`{{if ne $index 0}},{{end}}{{.PrivateName}} {{.Type}}` +
 		`{{end}}{{end}}`
 
-	var constructor = `{{if ne .Name "client" }}//New{{ .StructName }} creates a new...
+	var constructor = constructorDocs + `
 func New{{ .StructName }}(` + constructorParams + `) *{{.StructName}}	{
 	h := &{{ .StructName }}{
 {{range $index, $element := .Fields}}{{if .Required}}		{{.PrivateName}}: {{.PrivateName}},
@@ -377,16 +374,19 @@ func processHitType(h *HitType) {
 	}
 	//extra psuedo-fields to be added
 	for i, _ := range is {
+		h.Indices = append(h.Indices, i)
+	}
+	sort.Strings(h.Indices)
+
+	//ordered indicies
+	for _, i := range h.Indices {
 		h.Fields = append(h.Fields, &Field{
 			Name:        xstrings.FirstRuneToUpper(i),
 			PrivateName: i,
 			Type:        "string",
 			Docs:        "// " + xstrings.FirstRuneToUpper(i) + " is required by other properties",
 		})
-		//
-		h.Indices = append(h.Indices, i)
 	}
-	sort.Strings(h.Indices)
 
 	//place all non-client hittype ids in client for templating
 	if h.Name == "client" {

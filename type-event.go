@@ -14,7 +14,7 @@ type Event struct {
 	valueSet bool
 }
 
-//NewEvent creates a new...
+// NewEvent creates a new Event Hit Type.// Specifies the event category.// Specifies the event action.
 func NewEvent(category string, action string) *Event {
 	h := &Event{
 		category: category,

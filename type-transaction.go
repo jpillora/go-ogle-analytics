@@ -19,7 +19,9 @@ type Transaction struct {
 	currencyCodeSet bool
 }
 
-//NewTransaction creates a new...
+// NewTransaction creates a new Transaction Hit Type.// A unique identifier for the transaction. This value should
+// be the same for both the Transaction hit and Items hits
+// associated to the particular transaction.
 func NewTransaction(iD string) *Transaction {
 	h := &Transaction{
 		iD: iD,
