@@ -16,12 +16,14 @@ func NewClient(trackingID string) (*Client, error) {
 	if !trackingIDMatcher.MatchString(trackingID) {
 		return nil, fmt.Errorf("Invalid Tracking ID: %s", trackingID)
 	}
-	c := &Client{}
-	c.UseTLS = true
-	c.ProtocolVersion = "1"
-	c.ClientID = "go-ga"
-	c.TrackingID = trackingID
-	return c, nil
+	return &Client{
+		UseTLS:             true,
+		protocolVersion:    "1",
+		protocolVersionSet: true,
+		trackingID:         trackingID,
+		clientID:           "go-ga",
+		clientIDSet:        true,
+	}, nil
 }
 
 type hitType interface {
