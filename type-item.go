@@ -20,9 +20,12 @@ type Item struct {
 	currencyCodeSet bool
 }
 
-// NewItem creates a new Item Hit Type.// A unique identifier for the transaction. This value should
+// NewItem creates a new Item Hit Type.
+// A unique identifier for the transaction. This value should
 // be the same for both the Transaction hit and Items hits
-// associated to the particular transaction.// Specifies the item name.
+// associated to the particular transaction.
+// Specifies the item name.
+
 func NewItem(iD string, name string) *Item {
 	h := &Item{
 		iD:   iD,

@@ -13,6 +13,7 @@ type Exception struct {
 }
 
 // NewException creates a new Exception Hit Type.
+
 func NewException() *Exception {
 	h := &Exception{}
 	return h

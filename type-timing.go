@@ -33,6 +33,7 @@ type Timing struct {
 }
 
 // NewTiming creates a new Timing Hit Type.
+
 func NewTiming() *Timing {
 	h := &Timing{}
 	return h
