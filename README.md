@@ -20,7 +20,11 @@ The `ga` package is essentially a Go wrapper around the [Google Analytics - Meas
 go get -v github.com/jpillora/go-ogle-analytics
 ```
 
-### Usage
+### API
+
+#### http://godoc.org/github.com/jpillora/go-ogle-analytics
+
+### Quick Usage
 
 1. Log into GA and create a new property and note its Tracker ID
 
@@ -32,17 +36,12 @@ go get -v github.com/jpillora/go-ogle-analytics
 	import "github.com/jpillora/go-ogle-analytics"
 
 	func main() {
-		client, err := ga.NewClient("UA-XXXXXX-Y") //Tracker ID
+		client, err := ga.NewClient("UA-30305960-4")
 		if err != nil {
 			panic(err)
 		}
 
-		err = client.Send(&ga.Event{
-			Category: "Foo",
-			Action:   "Bar",
-			Label:    "Bazz",
-		})
-
+		err = client.Send(ga.NewEvent("Foo", "Bar").Label("Bazz"))
 		if err != nil {
 			panic(err)
 		}
@@ -63,10 +62,6 @@ go get -v github.com/jpillora/go-ogle-analytics
 1. Watch as your event appears
 
 	![foo-ga](https://cloud.githubusercontent.com/assets/633843/5979585/023fc580-a8fd-11e4-803a-956610bcc2e2.png)
-
-### Documentation
-
-#### http://godoc.org/github.com/jpillora/go-ogle-analytics
 
 #### MIT License
 
