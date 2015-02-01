@@ -4,15 +4,7 @@ Track and monitor your Go programs for free with Google Analytics
 
 The `ga` package is essentially a Go wrapper around the [Google Analytics - Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/reference)
 
-**Warning** :warning:
-
-1. This package is 95% generated from [Google Analytics - Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/v1/reference) so it may contain bugs - please report them.
-1. Although the protocol provides types, currently they're not being used
-	* GA uses the presence of a property to determine whether or not it's set. So with boolean values for example,
-	there's 3 states, `true`, `false` and *unset*. This makes it difficult when coming modelling this in Go land since `bool`s
-	must be either `true` or `false` - there is no *unset*.
-1. This package is beta software and may change due to **.1** and/or **.2**.
-1. GA allows "10 million hits per month per property" and will reject requests after that
+**Warning** This package is 95% generated from the [Parameter Reference](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters) so it may contain bugs - please report them. GA allows "10 million hits per month per property" and will reject requests after that.
 
 ### Install
 
@@ -21,6 +13,8 @@ go get -v github.com/jpillora/go-ogle-analytics
 ```
 
 ### API
+
+Create a new `client` and `Send()` a 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception' or 'timing' event.
 
 #### http://godoc.org/github.com/jpillora/go-ogle-analytics
 
@@ -36,7 +30,7 @@ go get -v github.com/jpillora/go-ogle-analytics
 	import "github.com/jpillora/go-ogle-analytics"
 
 	func main() {
-		client, err := ga.NewClient("UA-30305960-4")
+		client, err := ga.NewClient("UA-XXXXXXXX-Y")
 		if err != nil {
 			panic(err)
 		}

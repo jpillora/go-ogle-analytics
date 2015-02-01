@@ -3,7 +3,7 @@ package main
 import "github.com/jpillora/go-ogle-analytics"
 
 func main() {
-	client, err := ga.NewClient("UA-30305960-4")
+	client, err := ga.NewClient("UA-XXXXXXXX-Y")
 	if err != nil {
 		panic(err)
 	}
