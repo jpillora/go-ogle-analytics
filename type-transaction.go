@@ -88,3 +88,8 @@ func (h *Transaction) CurrencyCode(currencyCode string) *Transaction {
 	h.currencyCodeSet = true
 	return h
 }
+
+func (h *Transaction) Copy() *Transaction {
+	c := *h
+	return &c
+}

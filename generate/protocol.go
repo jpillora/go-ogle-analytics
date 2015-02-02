@@ -127,6 +127,11 @@ func (h *{{.StructName}}) addFields(v url.Values) error {
 }
 
 ` + setterFuncs + `
+
+func (h *{{.StructName}}) Copy() *{{.StructName}} {
+	c := *h
+	return &c
+}
 `
 }
 

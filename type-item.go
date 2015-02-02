@@ -91,3 +91,8 @@ func (h *Item) CurrencyCode(currencyCode string) *Item {
 	h.currencyCodeSet = true
 	return h
 }
+
+func (h *Item) Copy() *Item {
+	c := *h
+	return &c
+}

@@ -1217,3 +1217,8 @@ func (h *Client) PromoIndex(promoIndex string) *Client {
 	h.promoIndexSet = true
 	return h
 }
+
+func (h *Client) Copy() *Client {
+	c := *h
+	return &c
+}

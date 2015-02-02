@@ -34,3 +34,8 @@ func (h *Social) addFields(v url.Values) error {
 	v.Add("st", h.actionTarget)
 	return nil
 }
+
+func (h *Social) Copy() *Social {
+	c := *h
+	return &c
+}

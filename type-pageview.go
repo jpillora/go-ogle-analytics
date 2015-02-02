@@ -17,3 +17,8 @@ func NewPageview() *Pageview {
 func (h *Pageview) addFields(v url.Values) error {
 	return nil
 }
+
+func (h *Pageview) Copy() *Pageview {
+	c := *h
+	return &c
+}

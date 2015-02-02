@@ -170,3 +170,8 @@ func (h *Timing) ContentLoadTime(contentLoadTime int64) *Timing {
 	h.contentLoadTimeSet = true
 	return h
 }
+
+func (h *Timing) Copy() *Timing {
+	c := *h
+	return &c
+}

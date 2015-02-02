@@ -51,3 +51,8 @@ func (h *Event) Value(value int64) *Event {
 	h.valueSet = true
 	return h
 }
+
+func (h *Event) Copy() *Event {
+	c := *h
+	return &c
+}

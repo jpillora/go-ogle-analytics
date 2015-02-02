@@ -31,11 +31,14 @@ type hitType interface {
 }
 
 func (c *Client) Send(h hitType) error {
+
+	cpy := c.Copy()
+
 	v := url.Values{}
 
-	c.setType(h)
+	cpy.setType(h)
 
-	err := c.addFields(v)
+	err := cpy.addFields(v)
 	if err != nil {
 		return err
 	}
@@ -46,7 +49,7 @@ func (c *Client) Send(h hitType) error {
 	}
 
 	url := ""
-	if c.UseTLS {
+	if cpy.UseTLS {
 		url = "http://www.google-analytics.com/collect"
 	} else {
 		url = "https://ssl.google-analytics.com/collect"

@@ -42,3 +42,8 @@ func (h *Exception) IsExceptionFatal(isExceptionFatal bool) *Exception {
 	h.isExceptionFatalSet = true
 	return h
 }
+
+func (h *Exception) Copy() *Exception {
+	c := *h
+	return &c
+}

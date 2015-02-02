@@ -17,3 +17,8 @@ func NewScreenview() *Screenview {
 func (h *Screenview) addFields(v url.Values) error {
 	return nil
 }
+
+func (h *Screenview) Copy() *Screenview {
+	c := *h
+	return &c
+}
