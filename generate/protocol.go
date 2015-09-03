@@ -60,6 +60,7 @@ func buildCode() string {
 
 	var clientFields = `{{if eq .Name "client" }}	//Use TLS when Send()ing
 	UseTLS bool
+	HttpClient *http.Client
 {{end}}`
 
 	var fields = `{{range $index, $element := .Fields}}	{{.PrivateName}} {{.Type}}{{if not .Required}}
