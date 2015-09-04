@@ -18,6 +18,7 @@ func NewClient(trackingID string) (*Client, error) {
 	}
 	return &Client{
 		UseTLS:             true,
+		HttpClient:         http.DefaultClient,
 		protocolVersion:    "1",
 		protocolVersionSet: true,
 		trackingID:         trackingID,
@@ -58,7 +59,7 @@ func (c *Client) Send(h hitType) error {
 	str := v.Encode()
 	buf := bytes.NewBufferString(str)
 
-	resp, err := http.Post(url, "application/x-www-form-urlencoded", buf)
+	resp, err := c.HttpClient.Post(url, "application/x-www-form-urlencoded", buf)
 	if err != nil {
 		return err
 	}
