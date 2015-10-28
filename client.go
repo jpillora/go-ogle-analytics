@@ -64,6 +64,8 @@ func (c *Client) Send(h hitType) error {
 		return err
 	}
 
+	defer resp.Body.Close()
+
 	if resp.StatusCode/100 != 2 {
 		return fmt.Errorf("Rejected by Google with code %d", resp.StatusCode)
 	}
