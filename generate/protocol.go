@@ -13,7 +13,7 @@ import (
 	"strings"
 	"text/template"
 
-	"code.google.com/p/go.tools/imports"
+	"golang.org/x/tools/imports"
 
 	"github.com/PuerkitoBio/goquery"
 	"github.com/huandu/xstrings"
